@@ -26,7 +26,8 @@ class exports.StylusCompiler extends Compiler
       compiler.use nib if nib
       compiler.render (error, css) =>
         return @logError error if error?
-        main = @getBuildPath "web/css/main.css"
+        #main = @getBuildPath "web/css/main.css"
+        main = @getBuildPath "css/main.css"
         fs.writeFile main, css, "utf8", (error) =>
           return @logError error if error?
           @log()

@@ -65,6 +65,7 @@ exports.watchDirectory = (_opts, callback) ->
   watched = []
   addToWatch = (file) ->
     fs.realpath file, (err, filePath) ->
+      return if filePath is undefined
       callOnAdd = opts.callOnAdd
       if _.include watched, filePath
         callOnAdd = false

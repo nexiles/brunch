@@ -2,11 +2,11 @@
 
 root = __dirname + "/../"
 
-fs = require "fs"
-path = require "path"
+fs       = require "fs"
+path     = require "path"
 fileUtil = require "file"
-
-helpers = require "./helpers"
+_        = require "underscore"
+helpers  = require "./helpers"
 
 
 exports.VERSION = require("./package").version
@@ -62,8 +62,10 @@ exports.createExampleIndex = createExampleIndex = (filePath, buildPath) ->
   else
     relativePath = path.join "..", buildPath
 
-  cssPath = path.join relativePath, "web/css/main.css"
-  jsPath = path.join relativePath, "web/js/app.js"
+  #cssPath = path.join relativePath, "web/css/main.css"
+  #jsPath = path.join relativePath, "web/js/app.js"
+  cssPath = path.join relativePath, "css/main.css"
+  jsPath = path.join relativePath, "js/app.js"
   index = """
 <!doctype html>
 <html lang="en">
@@ -85,16 +87,19 @@ exports.initializeCompilers = ->
   compilers = for name, compiler of require "./compilers"
     new compiler(exports.options)
 
-
 exports.createBuildDirectories = (buildPath) ->
   createDir = (dirPath) ->
     fileUtil.mkdirsSync path.join(buildPath, dirPath), 0755
-  createDir "web/js"
-  createDir "web/css"
+  #createDir "web/js"
+  #createDir "web/css"
+  createDir "js"
+  createDir "css"
 
 
 # Dispatcher for file watching which determines which action needs to be done
 # according to the file that was changed/created/removed.
 exports.dispatch = (file) ->
   for compiler in compilers when compiler.matchesFile file
-    return compiler.onFileChanged file
+    compiler.onFileChanged file
+
+  # fscking rsync to dest directory
