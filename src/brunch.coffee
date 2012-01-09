@@ -100,6 +100,6 @@ exports.createBuildDirectories = (buildPath) ->
 # according to the file that was changed/created/removed.
 exports.dispatch = (file) ->
   for compiler in compilers when compiler.matchesFile file
-    return compiler.onFileChanged file
+    compiler.onFileChanged file
 
   # fscking rsync to dest directory

@@ -7,6 +7,7 @@ helpers = require "../helpers"
 class exports.Compiler
   constructor: (@options) ->
     @delay = 20
+
   getPath: (subPath) ->
     path.join @options.brunchPath, subPath
 
@@ -18,7 +19,7 @@ class exports.Compiler
     "[#{name}]:"
 
   log: (text = "OK") ->
-    helpers.logSuccess "#{@getClassName()} #{text}."
+    helpers.logSuccess "#{@getClassName()} #{text}"
 
   logError: (text) ->
     helpers.logError "#{@getClassName()} error. #{text}"
