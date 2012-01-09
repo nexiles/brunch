@@ -5,7 +5,8 @@ helpers = require "../helpers"
 
 
 class exports.Compiler
-  constructor: (@options) -> null
+  constructor: (@options) ->
+    @delay = 20
   getPath: (subPath) ->
     path.join @options.brunchPath, subPath
 
@@ -40,6 +41,6 @@ class exports.Compiler
   onFileChanged: (file) ->
     @addToQueue file
     clearTimeout @timeout if @timeout?
-    @timeout = setTimeout (=> @clearQueue()), 20
+    @timeout = setTimeout (=> @clearQueue()), @delay
 
   matchesFile: (file) -> _.any @patterns(), (pt) -> file.match pt

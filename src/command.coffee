@@ -20,6 +20,10 @@ globalOpts =
     abbr: "o"
     help: "set build path"
     metavar: "DIRECTORY"
+  destination:
+    abbr: "d"
+    help: "set destination for rsync"
+    metavar: "DESTINATION"
   minify:
     abbr: "m"
     flag: true
@@ -109,6 +113,7 @@ exports.loadConfigFile = (configPath) ->
 # Load options from arguments
 exports.loadOptionsFromArguments = (opts, options) ->
   options.templateExtension = opts.templateExtension if opts.templateExtension?
+  options.destination = opts.destination if opts.destination?
   options.brunchPath = opts[1] if opts[1]?
   options.minify = opts.minify if opts.minify?
   if opts.output?
