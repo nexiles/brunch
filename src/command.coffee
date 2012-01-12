@@ -28,8 +28,15 @@ globalOpts =
     abbr: "m"
     flag: true
     help: "minify the app.js output via UglifyJS"
-
-
+  runscript:
+    abbr: "r"
+    flag: true
+    help: "enables script running"
+  script:
+    abbr: "x"
+    help: "script command to run"
+    metavar: "SCRIPTCOMMAND"
+    
 # The help banner which is printed if brunch command-line tool is called with "--help" option.
 banner = """
   http://brunchwithcoffee.com
@@ -113,7 +120,12 @@ exports.loadConfigFile = (configPath) ->
 # Load options from arguments
 exports.loadOptionsFromArguments = (opts, options) ->
   options.templateExtension = opts.templateExtension if opts.templateExtension?
-  options.destination = opts.destination if opts.destination?
+  options.rsync = no
+  if opts.destination
+    options.destination = opts.destination
+    options.rsync = yes
+  options.runscript = opts.runscript if opts.runscript?
+  options.script = opts.script if opts.script?
   options.brunchPath = opts[1] if opts[1]?
   options.minify = opts.minify if opts.minify?
   if opts.output?

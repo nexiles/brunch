@@ -33,4 +33,5 @@ class exports.RsyncCompiler extends Compiler
         return rsync
 
     compile: (files) =>
-        proc = @rsync()
+        if @options.rsync
+            proc = @rsync()
